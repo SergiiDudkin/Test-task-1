@@ -1,0 +1,17 @@
+label {
+    font: 16px "Times New Roman", Times, serif;
+    color: #4f4356;
+}
+
+#ok-btn {
+    width: 100%;
+    height: 30px;
+    font-family: Arial, sans-serif;
+}
+
+.txtinp {
+    border: 1px solid #4f4356;
+    border-radius: 2px;
+    padding: 5px 5px;
+    width: 200px;
+}

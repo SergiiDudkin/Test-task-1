@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block main %}
+    <h1>Profile</h1>
+        <form method="post" enctype="multipart/form-data" action="{% url 'upload_img' %}">
+            {% csrf_token %}
+            <table class="center-table">
+                <tr>
+                    <td><strong>First name:</strong></td>
+                    <td>{{ user.first_name }}</td>
+                    <td rowspan="9">
+                        <img style="height: 200px !important;" src="{% if user.profile.photo %}{{ user.profile.photo.url }}{% else %}{% static 'stub.png' %}{% endif %}">
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Last name:</strong></td>
+                    <td>{{ user.last_name }}</td>
+                </tr>
+                <tr>
+                    <td><strong>e-Mail:</strong></td>
+                    <td>{{ user.email }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Phone:</strong></td>
+                    <td>{{ user.profile.phone }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Position:</strong></td>
+                    <td>{{ user.profile.position }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Salary:</strong></td>
+                    <td>{{ user.profile.salary }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Unused vacation days:</strong></td>
+                    <td>{{ user.profile.unused_vacation_days }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Photo:</strong></td>
+                    <td>{% if user.profile.photo %}{{ user.profile.photo }}{% else %}None{% endif %}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="file" name="myfile" required>
+                    </td>
+                    <td>
+                        <input type="submit" value="Upload">
+                    </td>
+                </tr>
+            </table>
+        </form>
+{% endblock main %}

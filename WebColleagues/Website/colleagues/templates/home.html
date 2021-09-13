@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" type="text/css" href="{% static 'home.css' %}">
+{% endblock stylesheet %}
+
+{% block main %}
+    <h1>Homepage</h1>
+    {% if user.is_staff %}
+        <table>
+            <thead>
+                <td>Photo</td>
+                <td>Username</td>
+                <td>First name</td>
+                <td>Last name</td>
+                <td>e-Mail</td>
+                <td>Phone</td>
+                <td>Position</td>
+                <td>Salary</td>
+                <td>Vac. days</td>
+                <td></td>
+            </thead>
+            <tbody>
+                {% for u in users %}
+                    <tr>
+                        <td><img style="height: 32px !important;" src="{% if u.profile.photo %}{{ u.profile.photo.url }}{% else %}{% static 'stub.png' %}{% endif %}"></td>
+                        <td>{{ u.username }}</td>
+                        <td>{{ u.first_name }}</td>
+                        <td>{{ u.last_name }}</td>
+                        <td>{{ u.email }}</td>
+                        <td>{{ u.profile.phone }}</td>
+                        <td>{{ u.profile.position }}</td>
+                        <td>{{ u.profile.salary }}</td>
+                        <td>{{ u.profile.unused_vacation_days }}</td>
+                        <td>
+                            <form method="post">
+                                {% csrf_token %}
+                                <input type="submit" value="Edit" formaction="{% url 'set_benefits' pk=u.pk %}">
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <h2>About</h2>
+        <div>
+            <p>
+                To see the list of employees, please visit this <strong>Home</strong> page at http://127.0.0.1:8000/home/ as admin (login: <strong>admin</strong>, password: <strong>admin123</strong>). By editing, you can also promote/demote employees, increase/decrease salary, give or withdraw vacation days. Alternatively, you can see the model from the built_in Django admin site.
+            </p>
+            <p>
+                New workers have to register first. After that they can upload their photos in <strong>My account</strong> section.
+            </p>
+        </div>
+    {% endif %}
+{% endblock main %}

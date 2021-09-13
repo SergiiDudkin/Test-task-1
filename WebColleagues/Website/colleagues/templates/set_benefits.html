@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" type="text/css" href="{% static 'form.css' %}">
+{% endblock stylesheet %}
+
+{% block main %}
+    <h1>Set benefits</h1>
+        <form id="regform" method="POST" action="{% url 'save_benefits' pk=user_.pk %}" autocomplete="off">
+            {% csrf_token %}
+            <table class="center-table">
+                <tr>
+                    <td rowspan="8"><img style="height: 200px !important;" src="{% if user_.profile.photo %}{{ user_.profile.photo.url }}{% else %}{% static 'stub.png' %}{% endif %}"></td>
+                    <td><strong>First name:</strong></td>
+                    <td>{{ user_.first_name }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Last name:</strong></td>
+                    <td>{{ user_.last_name }}</td>
+                </tr>
+                <tr>
+                    <td><strong>e-Mail:</strong></td>
+                    <td>{{ user_.email }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Phone:</strong></td>
+                    <td>{{ user_.profile.phone }}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="position"><strong>Position:</strong></label>
+                    </td>
+                    <td>
+                        <input id="position" class="txtinp" type="text" name="position" value="{{ user_.profile.position }}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="salary"><strong>Salary:</strong></label>
+                    </td>
+                    <td>
+                        <input id="salary" class="txtinp" type="number" step="100" min="0" name="salary" value="{{ user_.profile.salary }}" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="unused_vacation_days"><strong>Unused vacation days:</strong></label>
+                    </td>
+                    <td>
+                        <input id="unused_vacation_days" class="txtinp" type="number" step="1" min="0" name="unused_vacation_days" value="{{ user_.profile.unused_vacation_days }}" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input id="ok-btn" type="submit" value="Save">
+                    </td>
+                </tr>
+            </table>
+        </form>
+{% endblock main %}

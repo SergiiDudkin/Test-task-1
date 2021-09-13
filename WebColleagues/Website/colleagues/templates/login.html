@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" type="text/css" href="{% static 'form.css' %}">
+{% endblock stylesheet %}
+
+{% block main %}
+    <h1>Log In</h1>
+    <form method="POST" action="{% url 'login' %}" autocomplete="off">
+        {% csrf_token %}
+        <table class="center-table">
+            <tr>
+                <td>
+                    <label class="divlbl" for="login">Login</label>
+                </td>
+                <td>
+                    <input id="login" class="txtinp" type="text" name="username" value="{{ username }}" required>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="divlbl" for="password">Password</label>
+                </td>
+                <td>
+                    <input id="password" class="txtinp" type="password" name="password" minlength="2" required>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input id="ok-btn" type="submit" value="Log In">
+                </td>
+            </tr>
+        </table>
+    </form>
+{% endblock main %}
